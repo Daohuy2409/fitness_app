@@ -1,8 +1,7 @@
-import { StyleSheet, ScrollView } from "react-native";
-
-import EditScreenInfo from "@/components/EditScreenInfo";
+import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Link } from "expo-router";
 import { Text, View } from "@/components/Themed";
-import ImageViewer from "@/components/ImageViewer";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faBell, faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -15,9 +14,16 @@ import ProgressChartComponent from "@/components/ProgressChart";
 import CircularProgress from "react-native-circular-progress-indicator";
 import { Image } from "expo-image";
 
+import HorizontalCardList from "@/components/HorizontalCardList";
+import FullScreenAutoSlider from "@/components/AutoSlider";
+
 const chart1 = require("../../assets/images/chart1.png");
 const chart2 = require("../../assets/images/chart2.png");
+const adver = require("../../assets/images/califor.jpg");
+const indicator = require("../../assets/images/indicator.png");
 export default function TabOneScreen() {
+  const navigation = useNavigation();
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -32,161 +38,46 @@ export default function TabOneScreen() {
         <FontAwesomeIcon style={styles.headRight} icon={faBell} size={20} />
       </View>
       <View style={styles.body}>
-        <BoxComponent
-          header={<Text style={styles.headerText}>Activity Ring</Text>}
-          content={
-            <View style={styles.contentView}>
-              <CircularProgress
-                value={60}
-                showProgressValue={false}
-                inActiveStrokeWidth={20}
-                activeStrokeWidth={20}
-                activeStrokeColor="#06c930"
-                inActiveStrokeColor={"#7af595"}
-              />
-              <View style={styles.contentText}>
-                <Text style={{ fontSize: 18, fontWeight: "bold" }}>Move</Text>
-                <Text>60/100 KCAL</Text>
-              </View>
-            </View>
-          }
-        />
-        <View style={{ flexDirection: "row", marginTop: 20 }}>
-          <View style={{ flex: 1, marginRight: 10 }}>
-            <BoxComponent
-              header={
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                    Step Count
-                  </Text>
-                  <FontAwesomeIcon icon={faAngleRight} size={18} />
-                </View>
-              }
-              content={
-                <View>
-                  <Text>Today</Text>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: "bold",
-                      color: "#9d8bdb",
-                    }}
-                  >
-                    556
-                  </Text>
-                  <Image source={chart1} style={styles.image} />
-                </View>
-              }
-            />
-          </View>
-          <View style={{ flex: 1 }}>
-            <BoxComponent
-              header={
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                    Step Distance
-                  </Text>
-                  <FontAwesomeIcon icon={faAngleRight} size={18} />
-                </View>
-              }
-              content={
-                <View>
-                  <Text>Today</Text>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: "bold",
-                      color: "#51b4f9",
-                    }}
-                  >
-                    0,35km
-                  </Text>
-                  <Image source={chart2} style={styles.image} />
-                </View>
-              }
-            />
+        <Link href="/searchScreen" style={styles.searchLink}>
+          <Text style={styles.input}>Tìm kiếm phòng gym</Text>
+        </Link>
+
+        <Text
+          style={{
+            fontSize: 25,
+            fontWeight: "bold",
+            marginTop: 10,
+          }}
+        >
+          Bạn có thể thích
+        </Text>
+        <View style={styles.imageContainer}>
+          <FullScreenAutoSlider />
+        </View>
+
+        <View
+          style={{
+            marginTop: 20,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 25,
+              fontWeight: "bold",
+            }}
+          >
+            Thông báo mới
+          </Text>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text>Xem thêm</Text>
+            <FontAwesomeIcon icon={faAngleRight} />
           </View>
         </View>
-        <View style={{ flexDirection: "row", marginTop: 20 }}>
-          <View style={{ flex: 1, marginRight: 10 }}>
-            <BoxComponent
-              header={
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                    <FontAwesomeIcon icon={faPersonRunning} size={16} />
-                    Running
-                  </Text>
-                  <FontAwesomeIcon icon={faAngleRight} size={18} />
-                </View>
-              }
-              content={
-                <View>
-                  <Text>Weekly Distance</Text>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: "bold",
-                      color: "#02b7ff",
-                    }}
-                  >
-                    0,00km
-                  </Text>
-                  <Image source={chart1} style={styles.image} />
-                </View>
-              }
-            />
-          </View>
-          <View style={{ flex: 1 }}>
-            <BoxComponent
-              header={
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                    Awards
-                  </Text>
-                  <FontAwesomeIcon icon={faAngleRight} size={18} />
-                </View>
-              }
-              content={
-                <View>
-                  <Text>Today</Text>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: "bold",
-                      color: "#51b4f9",
-                    }}
-                  >
-                    challenge
-                  </Text>
-                  <Image source={chart2} style={styles.image} />
-                </View>
-              }
-            />
-          </View>
+        <View style={styles.notifyContainer}>
+          <HorizontalCardList />
         </View>
       </View>
     </ScrollView>
@@ -229,6 +120,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+  searchLink: {
+    height: 30,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    marginVertical: 10,
+    textAlignVertical: "center",
+  },
+  input: {
+    color: "#B0B0B0",
+  },
   contentView: {
     backgroundColor: "transparent",
     flexDirection: "row",
@@ -237,8 +140,33 @@ const styles = StyleSheet.create({
   contentText: {
     marginLeft: 20,
   },
+  imageContainer: {
+    position: "relative",
+    height: 200, // Đặt chiều cao của container
+  },
   image: {
-    width: 150,
+    width: "100%",
+    height: 200,
+    resizeMode: "cover",
+    marginTop: 10,
+    borderRadius: 20,
+  },
+  indicator: {
+    position: "absolute",
+    width: 50, // Đặt chiều rộng của ảnh thứ hai
+    height: 20,
+    bottom: 0,
+    right: 10,
+    zIndex: 10,
+    resizeMode: "contain",
+  },
+  notifyContainer: {
+    width: "100%",
+    marginTop: 20,
+  },
+  notifyItem: {
+    width: "100%",
     height: 100,
+    borderRadius: 10,
   },
 });
