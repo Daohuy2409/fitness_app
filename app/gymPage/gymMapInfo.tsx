@@ -6,8 +6,6 @@ import {
   Dimensions,
   Animated,
   PanResponder,
-  Easing,
-  Button,
   Alert,
   TouchableOpacity,
 } from "react-native";
@@ -15,11 +13,7 @@ import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { data } from "@/assets/pageData";
 import { WebView } from "react-native-webview";
 import { useState, useRef } from "react";
-import {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from "react-native-reanimated";
+
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faDiamondTurnRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -249,6 +243,7 @@ const styles = StyleSheet.create({
   panelTitle: {
     fontSize: 26,
     fontWeight: "500",
+    width: 173,
   },
   panelSubtitle: {
     color: "gray",

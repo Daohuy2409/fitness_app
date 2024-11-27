@@ -1,7 +1,9 @@
 interface PostInterface {
   id: number;
   title: string;
+  date: Date;
   description: string;
+  photoUrl: any;
   content: string;
 }
 interface DataInterface {
@@ -27,7 +29,9 @@ export const data: DataInterface[] = [
       {
         id: 1,
         title: "Giảm giá 100% cho người đăng ký lần đầu",
+        date: new Date("2003-09-24"),
         description: "Ưu đãi lớn cho ngày khai trương",
+        photoUrl: require("./images/postImg.jpeg"),
         content: "l;afkjdladjkflasdjfklsdjflajdfkklsajdaljaldsjfaldn",
       },
     ],
@@ -44,7 +48,9 @@ export const data: DataInterface[] = [
       {
         id: 1,
         title: "Giảm giá 100% cho người đăng ký lần đầu",
+        date: new Date("2023-10-01"),
         description: "Ưu đãi lớn cho ngày khai trương",
+        photoUrl: require("./images/postImg.jpeg"),
         content: "l;afkjdladjkflasdjfklsdjflajdfkklsajdaljaldsjfaldn",
       },
     ],
@@ -61,7 +67,9 @@ export const data: DataInterface[] = [
       {
         id: 1,
         title: "Giảm giá 100% cho người đăng ký lần đầu",
+        date: new Date("2023-10-01"),
         description: "Ưu đãi lớn cho ngày khai trương",
+        photoUrl: require("./images/postImg.jpeg"),
         content: "l;afkjdladjkflasdjfklsdjflajdfkklsajdaljaldsjfaldn",
       },
     ],
