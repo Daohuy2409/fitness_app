@@ -87,7 +87,7 @@ Lớp học sẽ được chính thức bắt đầu từ tuần sau. Cùng chú
     id: 2,
     name: "Level Fitness",
     address: "9 Đ. Phạm Văn Đồng, Mai Dịch, Cầu Giấy, Hà Nội",
-    location: [124.564, 236.564],
+    location: [21.04073279929369, 105.7802504965619],
     follow: 4585,
     coverPhotoUrl: [
       require("./images/gymID_2/gymImg_1.jpg"),
@@ -151,7 +151,7 @@ Sức khỏe là nền tảng cho một cuộc sống trọn vẹn, và sự k�
     id: 3,
     name: "California Fitness & Yoga Center",
     address: "173 Đ. Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội",
-    location: [130.564, 236.564],
+    location: [21.0373068847073, 105.78462764574923],
     follow: 565,
     coverPhotoUrl: [
       require("./images/gymID_3/gymImg_1.jpg"),
