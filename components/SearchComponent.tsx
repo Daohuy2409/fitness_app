@@ -40,7 +40,9 @@ const CardComponent: React.FC<CustomComponentProps> = ({
     <TouchableOpacity onPress={handleCardPress} style={styles.customComponent}>
       <Image source={imageUrl} style={styles.img} />
       <View style={styles.content}>
-        <Text style={styles.header}>{name}</Text>
+        <Text style={styles.header} numberOfLines={1} ellipsizeMode="tail">
+          {name}
+        </Text>
         <Text style={styles.address} numberOfLines={1} ellipsizeMode="tail">
           {address}
         </Text>
