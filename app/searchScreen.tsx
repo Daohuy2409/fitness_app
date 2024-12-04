@@ -16,8 +16,7 @@ const getDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => 
       Math.sin(dLon / 2) *
       Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = R * c; // Khoảng cách
-  return distance;
+  return R * c; // Khoảng cách
 };
 
 // Hàm lấy địa chỉ từ tọa độ (sử dụng Geocoding API)
@@ -37,7 +36,6 @@ const getAddressFromCoordinates = async (latitude: number, longitude: number) =>
 };
 
 export default function SearchScreen() {
-  // Vị trí cố định của người dùng
   const currentLocation = {
     latitude: 21.028776,
     longitude: 105.780664,
@@ -49,7 +47,7 @@ export default function SearchScreen() {
   const [currentAddress, setCurrentAddress] = useState<string>("");
 
   useEffect(() => {
-    // Lấy địa chỉ khi màn hình load
+    // Lấy địa chỉ từ tọa độ hiện tại
     const fetchAddress = async () => {
       const address = await getAddressFromCoordinates(
         currentLocation.latitude,
@@ -64,7 +62,6 @@ export default function SearchScreen() {
   const searchNearbyGyms = useCallback(() => {
     setLoading(true);
 
-    // Lọc và tính khoảng cách các phòng gym gần
     const nearby = data
       .map((gym) => {
         const distance = getDistance(
@@ -87,15 +84,15 @@ export default function SearchScreen() {
     <View style={styles.body}>
       <TextInput style={styles.input} placeholder="Nhập tên phòng tập" />
 
-      {/* Hiển thị địa chỉ người dùng */}
-      <View style={styles.locationContainer}>
-        <Text style={styles.locationText}>{currentAddress}</Text>
+      {/* Tiêu đề hiển thị */}
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>
+          {showNearbyGyms ? "Các phòng tập gần bạn" : "Đề xuất phòng gym"}
+        </Text>
+        {showNearbyGyms && (
+          <Text style={styles.addressText}>{currentAddress}</Text>
+        )}
       </View>
-
-      {/* Tiêu đề */}
-      <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}>
-        {showNearbyGyms ? "Các phòng tập gần bạn" : "Đề xuất phòng gym"}
-      </Text>
 
       {showNearbyGyms ? (
         loading ? (
@@ -112,6 +109,7 @@ export default function SearchScreen() {
                 address={item.address}
                 follow={item.follow}
               >
+                {/* Hiển thị khoảng cách */}
                 <Text style={styles.distanceText}>{item.distance} km</Text>
               </CardComponent>
             )}
@@ -135,7 +133,6 @@ export default function SearchScreen() {
         />
       )}
 
-      {/* Nút tìm kiếm */}
       <Button
         title="Tìm kiếm phòng gym gần"
         onPress={searchNearbyGyms}
@@ -161,19 +158,21 @@ const styles = StyleSheet.create({
   searchButton: {
     marginTop: 20,
   },
-  locationContainer: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-    backgroundColor: "white",
-    padding: 8,
-    borderRadius: 8,
-    elevation: 3,
-    zIndex: 100,
+  titleContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 20,
   },
-  locationText: {
+  titleText: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  addressText: {
     fontSize: 14,
     color: "gray",
+    maxWidth: "60%",
+    textAlign: "right",
   },
   distanceText: {
     fontSize: 14,
