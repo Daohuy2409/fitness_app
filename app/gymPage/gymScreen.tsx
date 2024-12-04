@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { data } from "@/assets/pageData";
 import { useNavigation, useRouter } from "expo-router";
 import HorizontalCardList from "@/components/HorizontalCardList";
+import InfoCard from "@/components/InfoCardComponent";
 const followIcon = require("../../assets/images/follow.png");
 export default function DetailScreen() {
   const navigation = useNavigation();
@@ -29,21 +37,27 @@ export default function DetailScreen() {
     setIsFollowed(!isFollowed);
     setShowImage(!showImage);
   };
+
   return (
-    <View style={styles.container}>
-      <Image source={gymData.coverPhotoUrl} style={styles.photo} />
+    <ScrollView style={styles.container}>
+      <Image source={gymData.coverPhotoUrl[0]} style={styles.photo} />
+
       <Image source={gymData.avatarUrl} style={styles.avatar} />
-      <TouchableOpacity
-        style={[styles.button, isFollowed && styles.buttonFollowed]}
-        onPress={handlePress}
-      >
-        {showImage && <Image source={followIcon} tintColor={"white"} />}
-        <Text
-          style={[styles.buttonText, isFollowed && styles.buttonTextFollowed]}
+
+      <View style={styles.name}>
+        <Text style={{ fontWeight: "bold", fontSize: 20 }}>{gymData.name}</Text>
+        <TouchableOpacity
+          style={[styles.button, isFollowed && styles.buttonFollowed]}
+          onPress={handlePress}
         >
-          {isFollowed ? "Following" : "Follow"}
-        </Text>
-      </TouchableOpacity>
+          {showImage && <Image source={followIcon} tintColor={"white"} />}
+          <Text
+            style={[styles.buttonText, isFollowed && styles.buttonTextFollowed]}
+          >
+            {isFollowed ? "Following" : "Follow"}
+          </Text>
+        </TouchableOpacity>
+      </View>
 
       <Text
         style={{
@@ -57,7 +71,11 @@ export default function DetailScreen() {
         Các bài viết gần đây
       </Text>
       <View style={styles.notifyContainer}>
-        <HorizontalCardList />
+        <HorizontalCardList
+          posts={gymData.post}
+          avatar={gymData.avatarUrl}
+          name={gymData.name}
+        />
       </View>
 
       <Text
@@ -70,29 +88,46 @@ export default function DetailScreen() {
       >
         Tất cả các bài viết
       </Text>
-    </View>
+      <View>
+        {gymData.post.map((post) => (
+          <InfoCard
+            key={post.id}
+            logo={gymData.avatarUrl}
+            name={gymData.name}
+            postInfo={post}
+          />
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
-    alignItems: "center",
+    backgroundColor: "#F0F0F0",
   },
-  header: {},
+
   photo: {
+    marginTop: -7,
     height: 200,
+    width: "100%",
+    resizeMode: "cover",
   },
   avatar: {
     position: "absolute",
     top: 125,
-    left: 20,
+    left: 10,
     borderRadius: 100,
     borderColor: "white",
     borderWidth: 3,
     width: 150,
     height: 150,
+  },
+  name: {
+    marginLeft: 170,
+    marginTop: 10,
+    flexDirection: "column",
   },
   button: {
     width: 90,
@@ -101,10 +136,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "center",
-    marginLeft: 30,
-    flexDirection: "row",
     marginTop: 10,
+    flexDirection: "row",
   },
   buttonText: {
     fontWeight: "bold",

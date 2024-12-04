@@ -16,6 +16,7 @@ import { useState, useRef } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faDiamondTurnRight } from "@fortawesome/free-solid-svg-icons";
+import HorizontalImgList from "@/components/ImgViewInMap";
 
 const { height } = Dimensions.get("window");
 export default function DetailScreen() {
@@ -209,6 +210,9 @@ export default function DetailScreen() {
             Dẫn đường
           </Text>
         </TouchableOpacity>
+        <View style={{ marginTop: 10 }}>
+          <HorizontalImgList id={id} />
+        </View>
       </Animated.View>
     </View>
   );
@@ -243,7 +247,7 @@ const styles = StyleSheet.create({
   panelTitle: {
     fontSize: 26,
     fontWeight: "500",
-    width: 173,
+    alignSelf: "flex-start",
   },
   panelSubtitle: {
     color: "gray",
